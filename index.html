@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Website Template Shop</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #266382;
+        }
+
+        header {
+            background-color: #266382;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        h1, h2 {
+            margin-top: 0;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo img {
+            max-width: 20%;
+            height: auto;
+        }
+
+        .template {
+            border: 3px solid #266382;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            background-color: #ff9800;
+            border-radius: 10px; /* Added border radius */
+        }
+
+        .template button:hover,
+        button.demo-button:hover,
+        footer button:hover,
+        button[type="submit"]:hover,
+        button[type="button"]:hover {
+            background-color: #266382;
+        }
+
+        .template:hover {
+            transform: translateY(-5px);
+        }
+
+        .template img {
+            max-width: 200px;
+            margin-right: 20px;
+        }
+
+        .template .details {
+            flex: 1;
+        }
+
+        .template h3 {
+            margin-top: 0;
+        }
+
+        .template p {
+            margin-bottom: 5px;
+        }
+
+        .template .rating {
+            display: flex;
+            align-items: center;
+        }
+
+        .template .rating span {
+            color: gold;
+        }
+
+        .template button {
+            background-color: #ffffff;
+            color: #000000;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .template .demo-button {
+            background-color: #ffffff;
+            color: #000000;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        section {
+        border: 1px solid #ff9800;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+        border-radius: 10px;
+    }
+
+    .order-details {
+        display: flex;
+    }
+
+    .order-details img {
+        max-width: 200px;
+        margin-right: 20px;
+    }
+
+    .order-details .details {
+        flex: 1;
+    }
+
+    .order-details h3 {
+        margin-top: 0;
+    }
+
+    .order-details p {
+        margin-bottom: 5px;
+    }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="email"] {
+            width: 95%;
+padding: 18px;
+border: 3px solid #266382;
+margin-bottom: 8px;
+background-color: #ff9800;
+        }
+
+        button[type="submit"] {
+            background-color: #ffffff;
+            color: #000000;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+        }
+
+        button[type="button"] {
+            background-color: #333;
+            color: #000000;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+    </header>
+
+    <div class="logo">
+        <img src="logo.png" alt="Logo">
+    </div>
+
+    <main>
+        <section>
+            <h2>Choose a Template</h2>
+            <div class="template">
+                <img src="Hotpot.png" alt="Template 1">
+                <div class="details">
+                    <h3>Template 1</h3>
+                    <p>Price: $29</p>
+                    <div class="rating">
+                        <span>&#9733;</span>
+                        <span>&#9733;</span>
+                        <span>&#9733;</span>
+                        <span>&#9733;</span>
+                        <span>&#9734;</span>
+                    </div>
+                </div>
+                <button class="demo-button" onclick="viewTemplateDemo('template1.html')">Template Demo</button>
+                <button onclick="selectTemplate('Template 1', 29, 'template1.jpg')">Select Template</button>
+            </div>
+
+            <div class="template">
+                <img src="Hotpot.png" alt="Template 2">
+                <div class="details">
+                    <h3>Template 2</h3>
+                    <p>Price: $39</p>
+                    <div class="rating">
+                        <span>&#9733;</span>
+                        <span>&#9733;</span>
+                        <span>&#9733;</span>
+                        <span>&#9734;</span>
+                        <span>&#9734;</span>
+                    </div>
+                </div>
+                <button class="demo-button" onclick="viewTemplateDemo('template2.html')">Template Demo</button>
+                <button onclick="selectTemplate('Template 2', 39, 'template2.jpg')">Select Template</button>
+            </div>
+
+            <!-- Add more template options here -->
+        </section>
+
+        <section>
+            <h2>Order Details</h2>
+            <div class="template">
+                <img id="selectedTemplateImage" src="" alt="Selected Template">
+                <div class="details">
+                    <h3 id="selectedTemplateName"></h3>
+                    <p>Price: <span id="selectedTemplatePrice"></span></p>
+                </div>
+            </div>
+            <form id="orderForm" onsubmit="submitOrder(event)">
+                <label for="name">Name:</label>
+                <input type="text" id="name" required><br>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" required><br>
+
+                <label for="template">Selected Template:</label>
+                <input type="text" id="template" disabled><br>
+
+                <label for="price">Price:</label>
+                <input type="text" id="price" disabled><br>
+
+                <button type="submit">Complete Order</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <button onclick="printOrder()">Print Order</button>
+    </footer>
+
+    <script>
+        function selectTemplate(template, price, imageSrc) {
+            document.getElementById('selectedTemplateName').textContent = template;
+            document.getElementById('selectedTemplatePrice').textContent = "$" + price;
+            document.getElementById('selectedTemplateImage').src = imageSrc;
+            document.getElementById('template').value = template;
+            document.getElementById('price').value = "$" + price;
+        }
+
+        function viewTemplateDemo(templateDemoUrl) {
+            window.open(templateDemoUrl);
+        }
+
+        function submitOrder(event) {
+            event.preventDefault();
+
+            // Get form data
+            var name = document.getElementById('name').value;
+            var email = document.getElementById('email').value;
+            var template = document.getElementById('template').value;
+            var price = document.getElementById('price').value;
+
+            // Send order to WhatsApp or Instagram
+            var orderMessage = "Name: " + name + "\nEmail: " + email + "\nSelected Template: " + template + "\nPrice: " + price;
+            var messageLink = "https://wa.me/923173703535?text=" + encodeURIComponent(orderMessage);
+            window.open(messageLink);
+        }
+
+        function printOrder() {
+            window.print();
+        }
+    </script>
+</body>
+</html>

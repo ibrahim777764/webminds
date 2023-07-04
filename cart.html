@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Shopping Cart</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<style>
+    .container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+.cart-item {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.cart-item h3 {
+  margin-top: 0;
+}
+
+.cart-item p {
+  margin: 5px 0;
+}
+
+.cart-item button {
+  margin-top: 10px;
+}
+
+#total {
+  font-weight: bold;
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+</style>
+<body>
+    <div class="container">
+        <h1>Shopping Cart</h1>
+        <div id="cart"></div>
+        <p id="total"></p>
+        <div class="buttons">
+          <button id="continueShoppingBtn">Continue Shopping</button>
+          <button id="orderNowBtn">Order Now</button>
+        </div>
+      </div>
+    
+      <script src="script.js"></script>
+      <script>
+        function renderCart() {
+          const cartContainer = document.getElementById("cart");
+          const totalElement = document.getElementById("total");
+          const continueShoppingBtn = document.getElementById("continueShoppingBtn");
+          const orderNowBtn = document.getElementById("orderNowBtn");
+    
+          // Retrieve cart items from local storage
+          const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+    
+          // Clear previous cart content
+          cartContainer.innerHTML = "";
+    
+          let totalPrice = 0;
+    
+          // Display cart items
+          cartItems.forEach((item, index) => {
+            const cartItemElement = document.createElement("div");
+            cartItemElement.className = "cart-item";
+    
+            const nameElement = document.createElement("h3");
+            nameElement.textContent = item.name;
+            cartItemElement.appendChild(nameElement);
+    
+            const priceElement = document.createElement("p");
+            priceElement.textContent = "Price: " + item.price;
+            cartItemElement.appendChild(priceElement);
+    
+            const removeButton = document.createElement("button");
+            removeButton.textContent = "Remove";
+            cartItemElement.appendChild(removeButton);
+    
+            cartContainer.appendChild(cartItemElement);
+    
+            // Calculate total price
+            totalPrice += parseFloat(item.price.replace("$", ""));
+    
+            // Add event listener to handle remove button click
+            removeButton.addEventListener("click", () => {
+              removeFromCart(index);
+            });
+          });
+    
+          // Display total price
+          totalElement.textContent = "Total Price: $" + totalPrice.toFixed(2);
+    
+          // Add event listener to continue shopping button
+          continueShoppingBtn.addEventListener("click", () => {
+            window.location.href = "index.html";
+          });
+    
+          // Add event listener to order now button
+          orderNowBtn.addEventListener("click", () => {
+            alert("Order placed successfully!"); // Replace with your actual order processing logic
+            localStorage.removeItem("cart"); // Clear the cart after placing the order
+            renderCart(); // Re-render the cart to update the UI
+          });
+        }
+    
+        // Function to handle removing product from the cart
+        function removeFromCart(index) {
+          // Retrieve existing cart from local storage
+          const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
+    
+          // Remove the item at the specified index
+          existingCart.splice(index, 1);
+    
+          // Store the updated cart in local storage
+          localStorage.setItem("cart", JSON.stringify(existingCart));
+    
+          // Re-render the cart
+          renderCart();
+        }
+    
+        // Call the renderCart function to display the cart items
+        renderCart();
+      </script>
+    </body>
+    </html>
